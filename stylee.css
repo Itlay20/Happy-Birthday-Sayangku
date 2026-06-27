@@ -1,0 +1,161 @@
+
+/* TYPEWRITER */
+
+const text=
+`Panjang umur, sehat selalu, 
+kiranya apa yang menjadi harapan dari sayang
+itu semua bisa terwujud hanya karna campur tangan Tuhan.
+
+Tetap menjadi enal yang sweet kenal, di kurang-kurangin egonya hahaha
+Kiranya di umur 23tahun ini bisa menjadi lebih dewasa.
+
+Tetap menjadi anak yang Takut akan Tuhan
+dan selalu mengandalkan Tuhan dalam segala Hal.
+
+Tuhan Yesus Memberkati di usia 23tahun ini sayang ❤️.
+`;
+
+let i=0;
+
+function typeWriter(){
+
+if(i<text.length){
+document.getElementById("typing").innerHTML+=text.charAt(i);
+i++;
+setTimeout(typeWriter,35);
+}
+
+}
+
+typeWriter();
+
+/* STARS */
+
+for(let i=0;i<180;i++){
+
+let star=document.createElement("div");
+
+star.className="star";
+
+let s=Math.random()*3;
+
+star.style.width=s+"px";
+star.style.height=s+"px";
+star.style.left=Math.random()*100+"vw";
+star.style.top=Math.random()*100+"vh";
+
+document.getElementById("stars").appendChild(star);
+
+}
+
+/* HEARTS */
+
+function createHeart(){
+
+let heart=document.createElement("div");
+
+heart.className="heart";
+
+heart.innerHTML="💙";
+
+heart.style.left=Math.random()*100+"vw";
+
+document.body.appendChild(heart);
+
+setTimeout(()=>heart.remove(),8000);
+
+}
+
+setInterval(createHeart,250);
+
+/* ENVELOPE */
+
+document.getElementById("envelope")
+.addEventListener("click",function(){
+
+this.classList.toggle("open");
+
+});
+
+
+
+/* COUNTDOWN SEJAK TANGGAL SPESIAL */
+
+// Tanggal lahir pacar
+const birthDate = new Date("2003-06-28");
+
+function updateCounter(){
+
+    let now = new Date();
+
+    let age = now.getFullYear() - birthDate.getFullYear();
+
+    let monthDiff = now.getMonth() - birthDate.getMonth();
+
+    if (
+        monthDiff < 0 ||
+        (monthDiff === 0 && now.getDate() < birthDate.getDate())
+    ) {
+        age--;
+    }
+
+    document.getElementById("counter").innerHTML =
+    "Enjoy your birthday <b>" + age + " Tahun</b> ❤️";
+}
+
+
+setInterval(updateCounter,1000);
+
+updateCounter();
+
+/* CONFETTI */
+
+const canvas=document.getElementById("confetti");
+const ctx=canvas.getContext("2d");
+
+canvas.width=window.innerWidth;
+canvas.height=window.innerHeight;
+
+function celebrate(){
+
+let particles=[];
+
+for(let i=0;i<250;i++){
+
+particles.push({
+
+x:canvas.width/2,
+y:canvas.height/2,
+dx:(Math.random()-0.5)*10,
+dy:(Math.random()-0.5)*10,
+size:Math.random()*8+2
+
+});
+
+}
+
+let anim=setInterval(()=>{
+
+ctx.clearRect(0,0,canvas.width,canvas.height);
+
+particles.forEach(p=>{
+
+p.x+=p.dx;
+p.y+=p.dy;
+p.dy+=0.05;
+
+ctx.beginPath();
+ctx.arc(p.x,p.y,p.size,0,Math.PI*2);
+ctx.fillStyle="white";
+ctx.fill();
+
+});
+
+},20);
+
+setTimeout(()=>{
+clearInterval(anim);
+ctx.clearRect(0,0,canvas.width,canvas.height);
+},3000);
+
+}
